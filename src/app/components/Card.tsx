@@ -16,7 +16,7 @@ const ClothingCard: React.FC<ClothingCardProps> = ({ clothing }) => {
       href={`/prenda/${clothing.id}`} 
       className="block rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
     >
-      <div className="relative">
+      <div className="relative bg-slate-800">
         <Image
           src={clothing.images[0]}
           alt={clothing.name}
