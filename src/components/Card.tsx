@@ -1,10 +1,10 @@
 //componente de prenda
 
 // src/components/Card.tsx
-import Image from 'next/image';
-import Link from 'next/link';
-import { Clothing } from '../lib/types';
-import StockBadge from './StockBadge';
+import Image from "next/image";
+import Link from "next/link";
+import { Clothing } from "../app/lib/types";
+import StockBadge from "./StockBadge";
 
 interface ClothingCardProps {
   clothing: Clothing;
@@ -12,8 +12,8 @@ interface ClothingCardProps {
 
 const ClothingCard: React.FC<ClothingCardProps> = ({ clothing }) => {
   return (
-    <Link 
-      href={`/prenda/${clothing.id}`} 
+    <Link
+      href={`/prenda/${clothing.id}`}
       className="block rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
     >
       <div className="relative bg-slate-800">
@@ -28,15 +28,13 @@ const ClothingCard: React.FC<ClothingCardProps> = ({ clothing }) => {
       </div>
 
       <div className="p-4 bg-white rounded-b-lg">
-        <h3 className="text-lg font-semibold text-gray-800">
-          {clothing.name}
-        </h3>
+        <h3 className="text-lg font-semibold text-gray-800">{clothing.name}</h3>
         <p className="text-sm text-gray-600 mt-2">
           {clothing.shortDescription}
         </p>
         <div className="mt-3 flex justify-between items-center">
           <div className="text-sm text-gray-500">
-            Talles: {clothing.sizes.join(', ')}
+            Talles: {clothing.sizes.join(", ")}
           </div>
           <span className="text-base font-bold text-pink-600">
             ${clothing.price.toFixed(2)}
@@ -48,4 +46,3 @@ const ClothingCard: React.FC<ClothingCardProps> = ({ clothing }) => {
 };
 
 export default ClothingCard;
-

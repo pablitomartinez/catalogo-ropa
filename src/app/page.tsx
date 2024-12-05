@@ -1,5 +1,5 @@
 // src/app/(public)/page.tsx
-import ClothingCard from "./components/Card";
+import ClothingCard from "../components/Card";
 import { Clothing } from "./lib/types";
 
 // Mock data - en producción reemplazar con datos reales
