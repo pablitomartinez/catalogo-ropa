@@ -1,4 +1,4 @@
-// src/app/(public)/page.tsx
+// src/app/page.tsx
 import ClothingCard from "../components/Card";
 import { Clothing } from "./lib/types";
 
