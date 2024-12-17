@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛠️ API de Catálogo de Ropa
 
-## Getting Started
+Este proyecto es una API REST creada con **Next.js** y **Prisma** para gestionar un catálogo de productos. Permite realizar operaciones CRUD sobre los productos.
 
-First, run the development server:
+---
 
-```bash
+## 🚀 Instalación y Configuración
+
+### **Requisitos previos**
+- Node.js (v18+)
+- PostgreSQL instalado y corriendo
+
+### **Pasos de instalación**
+1. Clona el repositorio:
+   git clone https://github.com/pablitomartinez/catalogo-ropa.git
+
+   cd catalogo-ropa
+
+2. Instala las dependencias:
+
+npm install
+
+3. Configura las variables de entorno en el archivo .env:
+
+    DATABASE_URL="postgresql://postgres:admin@localhost:5433/catalogo_ropa"
+
+
+4. Genera el esquema de la base de datos con Prisma:
+
+    npx prisma migrate dev --name init
+
+
+5. Inicia el servidor
+    npm run dev
+
+## 📋 Uso de la API
+1. Crear un producto
+    Método: POST
+    Endpoint: /api/productos
+    Body (JSON):
+    json
+ 
+
+    {
+    "nombre": "Remera",
+    "descripcion": "Remera de algodón",
+    "precio": 20.99
+    }
+
+Respuesta:
+json
+
+    {
+    "id": 1,
+    "nombre": "Remera",
+    "descripcion": "Remera de algodón",
+    "precio": 20.99,
+    "createdAt": "2024-06-08T12:34:56Z"
+    }
+2. Obtener un producto por ID
+Método: GET
+Endpoint: /api/productos/[id]
+3. Actualizar un producto
+Método: PUT
+Endpoint: /api/productos/[id]
+Body (JSON):
+json
+
+    {
+    "nombre": "Pantalón",
+    "descripcion": "Pantalón vaquero",
+    "precio": 45.50
+    }
+4. Eliminar un producto
+Método: DELETE
+Endpoint: /api/productos/[id]
+
+
+## 🗂️ Estructura del proyecto
+plaintext
+Copiar código
+src/
+│-- app/
+│   ├── api/
+│   │   └── productos/
+│   │       ├── route.ts   # Ruta principal para POST
+│   │       └── [id]/      # Rutas GET, PUT, DELETE
+│-- prisma/
+│   ├── schema.prisma      # Definición del modelo de datos
+│-- .env                   # Variables de entorno
+│-- package.json           # Dependencias del proyecto
+│-- README.md              # Documentación principal
+
+## 💻 Comandos útiles
+Iniciar servidor:
+
+bash
+Copiar código
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Generar migraciones:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+bash
+Copiar código
+npx prisma migrate dev --name <nombre_migracion>
+Abrir Prisma Studio (visor de BD):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npx prisma studio
 
-## Learn More
+## 🐛 Errores comunes
+Problema	Solución
+Error de conexión a PostgreSQL	Revisa las credenciales en .env.
+ID no encontrado en PUT o DELETE	Asegúrate de que el producto exista en la BD.
+Prisma no genera la base de datos	Ejecuta npx prisma migrate dev.
 
-To learn more about Next.js, take a look at the following resources:
+## 🤝 Contribuciones
+Si quieres contribuir a este proyecto, realiza un fork, crea una nueva rama y envía un pull request.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
