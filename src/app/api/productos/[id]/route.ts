@@ -3,55 +3,41 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../lib/prisma"; // Importa la instancia de Prisma
 
+//OBTENER POR ID
+export async function GET(
+  request: Request,
+  context: { params: { id: string } }
+) {
+  try {
+    // const { params } = context; // Extraer los params asíncronamente
+    // const id = parseInt(params.id); // Ahora accedemos a params.id de forma segura
+    const { id } = await context.params;
+    // Convertir el id a número
+    const idParsed = parseInt(id);
 
-// export async function PUT(
-//   request: Request,
-//   { params }: { params: { id: string } }
-// ) {
-//   try {
-//     // const { id } = params;
-//     const { id } = await params;
+    // Buscar el producto en la base de datos
+    const producto = await prisma.producto.findUnique({
+      where: { id: idParsed },
+    });
 
+    if (!producto) {
+      return NextResponse.json(
+        { error: `El producto con ID ${id} no existe.` },
+        { status: 404 }
+      );
+    }
 
-//     // Validación previa: Verificar si el producto existe
-//     const productoExistente = await prisma.producto.findUnique({
-//       where: { id: parseInt(id) },
-//     });
-//     // Si el producto no existe, retornar un error 404
-//     if (!productoExistente) {
-//       return NextResponse.json(
-//         { error: "Producto no encontrado" },
-//         { status: 404 }
-//       );
-//     }
+    return NextResponse.json(producto, { status: 200 });
+  } catch (error) {
+    console.error("Error al obtener el producto:", error);
+    return NextResponse.json(
+      { error: "Hubo un problema al obtener el producto." },
+      { status: 500 }
+    );
+  }
+}
 
-//     //obtengo los datos del cuerpo de la solicitud
-//     const body = await request.json();
-//     const productoActualizado = await prisma.producto.update({
-//       where: { id: parseInt(id) },
-//       data: {
-//         nombre: body.nombre,
-//         descripcion: body.descripcion,
-//         descripcionCorta: body.descripcion_corta, // Actualizado
-//         precio: body.precio,
-//         enStock: body.en_stock, // Actualizado
-//         cantidadStock: body.cantidad_stock, // Actualizado
-//         categoria: body.categoria,
-//       },
-//     });
-//     return NextResponse.json(productoActualizado, { status: 200 });
-//   } catch (error) {
-//     console.error("Error al actualizar producto:", error);
-//     return NextResponse.json(
-//       { error: "Hubo un problema al actualizar el producto." },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-// ELIMINAR PRODUCTOS
-
-
+// ACTUALIZAR PRODUCTO
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
@@ -100,7 +86,7 @@ export async function PUT(
   }
 }
 
-
+//ELIINAR PRODUCTO
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }

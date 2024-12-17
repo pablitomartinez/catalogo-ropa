@@ -44,22 +44,31 @@ npm install
     {
     "nombre": "Remera",
     "descripcion": "Remera de algodón",
-    "precio": 20.99
+    "precio": 20.99,
+    "categoria": "Ropa Casual"
     }
 
 Respuesta:
 json
 
-    {
-    "id": 1,
+   {
+    "id": 6,
     "nombre": "Remera",
     "descripcion": "Remera de algodón",
+    "descripcionCorta": null,
     "precio": 20.99,
-    "createdAt": "2024-06-08T12:34:56Z"
+    "enStock": true,
+    "cantidadStock": 0,
+    "categoria": "Ropa Casual",
+    "fechaCreacion": "2024-12-17T12:13:37.444Z",
+    "fechaActualizacion": "2024-12-17T12:13:37.444Z"
     }
+
 2. Obtener un producto por ID
 Método: GET
 Endpoint: /api/productos/[id]
+
+
 3. Actualizar un producto
 Método: PUT
 Endpoint: /api/productos/[id]
