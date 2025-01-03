@@ -14,11 +14,12 @@ export async function GET(
     const { id } = await context.params;
     // Convertir el id a número
     const idParsed = parseInt(id);
-
+    
     // Buscar el producto en la base de datos
-    const producto = await prisma.productos.findUnique({
+    const producto = await prisma.producto.findUnique({
       where: { id: idParsed },
     });
+    console.log(producto)
 
     if (!producto) {
       return NextResponse.json(
@@ -47,9 +48,12 @@ export async function PUT(
     const { id } = await params; // Espera a que `params` esté disponible
 
     // Validar si el producto existe
-    const productoExistente = await prisma.productos.findUnique({
+    const productoExistente = await prisma.producto.findUnique({
       where: { id: parseInt(id) },
     });
+
+    console.log(productoExistente, 'producto si existe');
+    
 
     if (!productoExistente) {
       return NextResponse.json(
@@ -62,16 +66,16 @@ export async function PUT(
     const body = await request.json();
 
     // Actualizar el producto
-    const productoActualizado = await prisma.productos.update({
+    const productoActualizado = await prisma.producto.update({
       where: { id: parseInt(id) },
       data: {
         nombre: body.nombre,
         descripcion: body.descripcion,
         descripcionCorta: body.descripcionCorta,
         precio: body.precio,
-        enStock: body.en_stock,
         cantidadStock: body.cantidad_stock,
         categoria: body.categoria,
+        en_stock: body.enStock,
       },
     });
 
@@ -95,7 +99,7 @@ export async function DELETE(
     const { id } = await context.params;
     // const idParsed = parseInt(id)
     // Verificar si el producto existe
-    const producto = await prisma.productos.findUnique({
+    const producto = await prisma.producto.findUnique({
       where: { id: parseInt(id) },
     });
 
@@ -106,7 +110,7 @@ export async function DELETE(
       );
     }
 
-    await prisma.productos.delete({ where: { id: parseInt(id) } });
+    await prisma.producto.delete({ where: { id: parseInt(id) } });
     return NextResponse.json(
       { message: `Producto ${id} eliminado con éxito.` },
       { status: 200 }

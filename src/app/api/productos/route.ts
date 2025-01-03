@@ -1,6 +1,8 @@
 //rutas genericas de GET y POST
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+// import prisma from "../../lib/prisma";
+
 
 const prisma = new PrismaClient();
 
@@ -9,18 +11,18 @@ const prisma = new PrismaClient();
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const producto = await prisma.productos.create({
+    const productos = await prisma.producto.create({
       data: {
         nombre: body.nombre,
         descripcion: body.descripcion,
         descripcionCorta: body.descripcionCorta, // Actualizado
         precio: body.precio,
-        enStock: body.en_stock, // Actualizado
+        en_stock: body.enStock,
         cantidadStock: body.cantidad_stock, // Actualizado
         categoria: body.categoria,
       },
     });
-    return NextResponse.json(producto, { status: 201 });
+    return NextResponse.json(productos, { status: 201 });
   } catch (error) {
     console.error("Error al crear producto:", error);
     return NextResponse.json(
@@ -34,7 +36,7 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const productos = await prisma.productos.findMany();
+    const productos = await prisma.producto.findMany();
     return NextResponse.json(productos, { status: 200 });
   } catch (error) {
     console.error("Error al obtener productos:", error);
